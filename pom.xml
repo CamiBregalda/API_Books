@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>cch_books.Main</exec.mainClass>
+        <exec.mainClass>cch_books.view.Tela_Inicial</exec.mainClass>
     </properties>
     <name>CCH_Books</name>
 </project>

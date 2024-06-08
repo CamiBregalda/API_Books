@@ -24,7 +24,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jTFBuscar = new javax.swing.JTextField();
         jLBBuscar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTFQuantidade = new javax.swing.JTextField();
         jBTNBuscar = new javax.swing.JButton();
         jPNTabela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -72,6 +72,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTBLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTBLivrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTBLivros);
 
         javax.swing.GroupLayout jPNTabelaLayout = new javax.swing.GroupLayout(jPNTabela);
@@ -103,7 +108,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -118,7 +123,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLBBuscar)
@@ -147,18 +152,40 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     private void jBTNBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTNBuscarActionPerformed
         String busca = jTFBuscar.getText();
+        int quantidade;
+        
+        try {
+            quantidade = Integer.parseInt(jTFQuantidade.getText());
+        } catch (NumberFormatException e) {
+            quantidade = 0;
+        }
         
         ClienteHttp cliente = new ClienteHttp();
-        String json = cliente.buscaDados("https://www.googleapis.com/books/v1/volumes?q=" + busca);
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca;
+        if(quantidade != 0){
+            url = url += "&maxResults=" + quantidade;
+        }
+        String json = cliente.buscaDados(url);
         livros = extrairDados(json);
                
         DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
+        
+        Book livro = new Book();
+        livro.setTitulo("Titulo");
+        livro.setAutores(List.of("Autor 1", "Autor 2"));
+        livros.add(livro);
         
         for(int i = 0; i < livros.size(); i++){
            String autores = String.join(", ", livros.get(i).getAutores());
            tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
         }   
     }//GEN-LAST:event_jBTNBuscarActionPerformed
+
+    private void jTBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBLivrosMouseClicked
+        Tela_Inicial telaInicial = new Tela_Inicial();
+        telaInicial.setTitle("Tela Inicial");
+        telaInicial.setVisible(true);
+    }//GEN-LAST:event_jTBLivrosMouseClicked
 
     private List<Book> extrairDados(String json){
         List<Book> books = new ArrayList<>();
@@ -186,6 +213,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     JSONArray autoresJson = volumeInfo.optJSONArray("authors");
                     if (autoresJson != null) {
                         for (int j = 0; j < autoresJson.length(); j++) {
+                            System.out.println("Olá");
                             autores.add(autoresJson.getString(j));
                         }
                     }
@@ -263,6 +291,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTBLivros;
     private javax.swing.JTextField jTFBuscar;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTFQuantidade;
     // End of variables declaration//GEN-END:variables
 }
