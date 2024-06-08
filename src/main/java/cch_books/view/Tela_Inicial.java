@@ -165,16 +165,16 @@ public class Tela_Inicial extends javax.swing.JFrame {
         if(quantidade > 0){
             url = url += "&maxResults=" + quantidade;
         }
-        //String json = cliente.buscaDados(url);
-        //livros = extrairDados(json);
+        String json = cliente.buscaDados(url);
+        livros = extrairDados(json);
                
         DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
-        
+        /*
         Book livro = new Book();
         livro.setTitulo("Titulo");
         livro.setAutores(List.of("Autor 1", "Autor 2"));
-        livros.add(livro);
-        
+        livros.add(livro);*/
+        System.out.println("teste");
         for(int i = 0; i < livros.size(); i++){
            String autores = String.join(", ", livros.get(i).getAutores());
            tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
@@ -182,97 +182,79 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jBTNBuscarActionPerformed
 
     private void jTBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBLivrosMouseClicked
-        Tela_Inicial telaInicial = new Tela_Inicial();
-        telaInicial.setTitle("Tela Inicial");
-        telaInicial.setVisible(true);
+        Detalhes_Livro detalhesLivro = new Detalhes_Livro();
+        detalhesLivro.setTitle("Tela Inicial");
+        detalhesLivro.setVisible(true);
+        
+        String titulo = jTBLivros.getValueAt(jTBLivros.getSelectedRow(), 0).toString();
+        System.out.println(titulo);
     }//GEN-LAST:event_jTBLivrosMouseClicked
 
     private List<Book> extrairDados(String json){
-        List<Book> books = new ArrayList<>();
+        try {
+            List<Book> books = new ArrayList<>();
 
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray itensJson = jsonObject.optJSONArray("items");
-        
-        if(itensJson != null){
-            for (int i = 0; i < itensJson.length(); i++) {
-                JSONObject item = itensJson.getJSONObject(i);
-                Book livro = new Book();
-                
-                JSONObject volumeInfo = item.optJSONObject("volumeInfo");
-                JSONObject saleInfo = item.optJSONObject("saleInfo");
-                JSONObject accessInfo = item.optJSONObject("accessInfo");
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray itensJson = jsonObject.optJSONArray("items");
 
-                livro.setId(item.optString("id", "Id não encontrado"));
+            if(itensJson != null){
+                for (int i = 0; i < itensJson.length(); i++) {
+                    JSONObject item = itensJson.getJSONObject(i);
+                    Book livro = new Book();
 
-                if (volumeInfo != null) {
-                    livro.setTitulo(volumeInfo.optString("title", "Título não encontrado"));
-                    livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado"));
-                    livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado"));
-                    
-                    List<String> autores = new ArrayList<>();
-                    JSONArray autoresJson = volumeInfo.optJSONArray("authors");
-                    if (autoresJson != null) {
-                        for (int j = 0; j < autoresJson.length(); j++) {
-                            System.out.println("Olá");
-                            autores.add(autoresJson.getString(j));
+                    JSONObject volumeInfo = item.optJSONObject("volumeInfo");
+                    JSONObject saleInfo = item.optJSONObject("saleInfo");
+                    JSONObject accessInfo = item.optJSONObject("accessInfo");
+
+                    livro.setId(item.optString("id", "Id não encontrado"));
+
+                    if (volumeInfo != null) {
+                        livro.setTitulo(volumeInfo.optString("title", "Título não encontrado"));
+                        livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado"));
+                        livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado"));
+
+                        List<String> autores = new ArrayList<>();
+                        JSONArray autoresJson = volumeInfo.optJSONArray("authors");
+                        if (autoresJson != null) {
+                            for (int j = 0; j < autoresJson.length(); j++) {
+                                autores.add(autoresJson.getString(j));
+                            }
+                        }
+
+                        if(autores.isEmpty()){
+                            autores.add("Autores desconhecidos");
+                        }
+
+                        livro.setAutores(autores);
+                    }
+
+                    if(saleInfo != null){
+                        livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado"));
+
+                        JSONObject listPrice = saleInfo.optJSONObject("listPrice");
+                        if (listPrice != null){
+                            livro.setValor(listPrice.optDouble("amount", 0.0));
+                            livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado"));
                         }
                     }
-                    
-                    if(autores.isEmpty()){
-                        autores.add("Autores desconhecidos");
-                    }
-                    
-                    livro.setAutores(autores);
-                }
-                
-                if(saleInfo != null){
-                    livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado"));
-                    
-                    JSONObject listPrice = saleInfo.optJSONObject("listPrice");
-                    if (listPrice != null){
-                        livro.setValor(listPrice.optDouble("amount", 0.0));
-                        livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado"));
-                    }
-                }
-                
-                if(accessInfo != null){
-                    livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
-                    livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
-                    
-                }
-                System.out.println(livros.get(i));
-                livros.add(livro);
-            }
-        }
 
-        return books;
+                    if(accessInfo != null){
+                        livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
+                        livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
+
+                    }
+
+                    livros.add(livro);
+                }
+            }
+
+            return books;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
      public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Tela_Inicial telaInicial = new Tela_Inicial();
