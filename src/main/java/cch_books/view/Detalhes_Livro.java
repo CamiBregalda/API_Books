@@ -40,6 +40,9 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
         jSPDescricao = new javax.swing.JScrollPane();
         jTADescricao = new javax.swing.JTextArea();
         jLBDescricao = new javax.swing.JLabel();
+        jLBDisponivelEm = new javax.swing.JLabel();
+        jCBpdf = new javax.swing.JCheckBox();
+        jCBpub = new javax.swing.JCheckBox();
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -73,7 +76,15 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
         jTADescricao.setRows(5);
         jSPDescricao.setViewportView(jTADescricao);
 
+        jLBDescricao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLBDescricao.setText("Descrição:");
+
+        jLBDisponivelEm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBDisponivelEm.setText("Disponível em:");
+
+        jCBpdf.setText("PDF");
+
+        jCBpub.setText("PUB");
 
         javax.swing.GroupLayout jPBackLayout = new javax.swing.GroupLayout(jPBack);
         jPBack.setLayout(jPBackLayout);
@@ -113,11 +124,21 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
                                             .addComponent(jLBAutores)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jTFAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPBackLayout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addComponent(jLBDisponivelEm))
+                                        .addComponent(jCBpdf))
+                                    .addGroup(jPBackLayout.createSequentialGroup()
+                                        .addComponent(jCBpub)
+                                        .addGap(57, 57, 57)))
+                                .addGap(62, 62, 62))))
                     .addGroup(jPBackLayout.createSequentialGroup()
                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSPDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLBDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLBDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 47, Short.MAX_VALUE))))
         );
         jPBackLayout.setVerticalGroup(
@@ -130,25 +151,33 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLBEditora)
-                            .addComponent(jTFEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFAutores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLBAutores))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTFIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLBIdioma))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLBPreco)
-                            .addComponent(jTFPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTFEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLBDisponivelEm))
+                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPBackLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTFAutores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLBAutores))
+                                .addGap(12, 12, 12)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jTFIdioma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLBIdioma))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLBPreco)
+                                    .addComponent(jTFPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPBackLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jCBpdf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCBpub))))
                     .addGroup(jPBackLayout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLBDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSPDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -172,8 +201,11 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCBpdf;
+    private javax.swing.JCheckBox jCBpub;
     private javax.swing.JLabel jLBAutores;
     private javax.swing.JLabel jLBDescricao;
+    private javax.swing.JLabel jLBDisponivelEm;
     private javax.swing.JLabel jLBEditora;
     private javax.swing.JLabel jLBIdioma;
     private javax.swing.JLabel jLBPreco;
