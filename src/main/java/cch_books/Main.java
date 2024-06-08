@@ -1,6 +1,7 @@
 package cch_books;
 
 import cch_books.http.ClienteHttp;
+import cch_books.view.Tela_Inicial;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         ClienteHttp cliente = new ClienteHttp();
         String resposta = cliente.buscaDados("https://www.googleapis.com/books/v1/volumes?q=QUERY");
-        //System.out.println(resposta);
+        System.out.println(resposta);
 
         extrairDados(resposta);
     }
