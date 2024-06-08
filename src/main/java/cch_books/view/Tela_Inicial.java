@@ -162,11 +162,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         
         ClienteHttp cliente = new ClienteHttp();
         String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca;
-        if(quantidade != 0){
+        if(quantidade > 0){
             url = url += "&maxResults=" + quantidade;
         }
-        String json = cliente.buscaDados(url);
-        livros = extrairDados(json);
+        //String json = cliente.buscaDados(url);
+        //livros = extrairDados(json);
                
         DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
         
