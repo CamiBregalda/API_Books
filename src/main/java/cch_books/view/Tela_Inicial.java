@@ -165,16 +165,16 @@ public class Tela_Inicial extends javax.swing.JFrame {
         if(quantidade > 0){
             url = url += "&maxResults=" + quantidade;
         }
-        String json = cliente.buscaDados(url);
-        livros = extrairDados(json);
+        //String json = cliente.buscaDados(url);
+        //livros = extrairDados(json);
                
         DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
-        /*
+        
         Book livro = new Book();
         livro.setTitulo("Titulo");
         livro.setAutores(List.of("Autor 1", "Autor 2"));
-        livros.add(livro);*/
-        System.out.println("teste");
+        livros.add(livro);
+
         for(int i = 0; i < livros.size(); i++){
            String autores = String.join(", ", livros.get(i).getAutores());
            tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
@@ -182,12 +182,17 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jBTNBuscarActionPerformed
 
     private void jTBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBLivrosMouseClicked
-        Detalhes_Livro detalhesLivro = new Detalhes_Livro();
-        detalhesLivro.setTitle("Tela Inicial");
-        detalhesLivro.setVisible(true);
-        
         String titulo = jTBLivros.getValueAt(jTBLivros.getSelectedRow(), 0).toString();
-        System.out.println(titulo);
+        
+        for (Book livro : livros) {
+            if (livro.getTitulo().equalsIgnoreCase(titulo)) {
+                Detalhes_Livro detalhesLivro = new Detalhes_Livro();
+                detalhesLivro.recebeDados(livro);
+                detalhesLivro.setTitle("Detalhes do Livro");
+                detalhesLivro.setVisible(true);
+                break; 
+            }
+        }
     }//GEN-LAST:event_jTBLivrosMouseClicked
 
     private List<Book> extrairDados(String json){
@@ -251,6 +256,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             return books;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
         }
     }
     
