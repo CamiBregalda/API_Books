@@ -115,13 +115,14 @@ public class Tela_Inicial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLBBuscar)
-                    .addComponent(jBTNBuscar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLBBuscar)
+                        .addComponent(jBTNBuscar)))
                 .addContainerGap(292, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,14 +151,13 @@ public class Tela_Inicial extends javax.swing.JFrame {
         ClienteHttp cliente = new ClienteHttp();
         String json = cliente.buscaDados("https://www.googleapis.com/books/v1/volumes?q=" + busca);
         livros = extrairDados(json);
-        
+               
         DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
         
-        String livro = "Nome do Livro";
-        String autores = "Teste";
-        //List<String> autores = Arrays.asList("Autor 1", "Autor 2", "Autor 3");
-        
-        tabela.addRow(new Object[]{livro, autores});
+        for(int i = 0; i < livros.size(); i++){
+           String autores = String.join(", ", livros.get(i).getAutores());
+           tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
+        }   
     }//GEN-LAST:event_jBTNBuscarActionPerformed
 
     private List<Book> extrairDados(String json){
@@ -165,6 +165,57 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         JSONObject jsonObject = new JSONObject(json);
         JSONArray itensJson = jsonObject.optJSONArray("items");
+        
+        if(itensJson != null){
+            for (int i = 0; i < itensJson.length(); i++) {
+                JSONObject item = itensJson.getJSONObject(i);
+                Book livro = new Book();
+                
+                JSONObject volumeInfo = item.optJSONObject("volumeInfo");
+                JSONObject saleInfo = item.optJSONObject("saleInfo");
+                JSONObject accessInfo = item.optJSONObject("accessInfo");
+
+                livro.setId(item.optString("id", "Id não encontrado"));
+
+                if (volumeInfo != null) {
+                    livro.setTitulo(volumeInfo.optString("title", "Título não encontrado"));
+                    livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado"));
+                    livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado"));
+                    
+                    List<String> autores = new ArrayList<>();
+                    JSONArray autoresJson = volumeInfo.optJSONArray("authors");
+                    if (autoresJson != null) {
+                        for (int j = 0; j < autoresJson.length(); j++) {
+                            autores.add(autoresJson.getString(j));
+                        }
+                    }
+                    
+                    if(autores.isEmpty()){
+                        autores.add("Autores desconhecidos");
+                    }
+                    
+                    livro.setAutores(autores);
+                }
+                
+                if(saleInfo != null){
+                    livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado"));
+                    
+                    JSONObject listPrice = saleInfo.optJSONObject("listPrice");
+                    if (listPrice != null){
+                        livro.setValor(listPrice.optDouble("amount", 0.0));
+                        livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado"));
+                    }
+                }
+                
+                if(accessInfo != null){
+                    livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
+                    livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
+                    
+                }
+                System.out.println(livros.get(i));
+                livros.add(livro);
+            }
+        }
 
         return books;
     }

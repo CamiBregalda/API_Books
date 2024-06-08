@@ -1,0 +1,8 @@
+cch_books\model\Book.class
+cch_books\Main.class
+cch_books\view\Detalhes_Livro.class
+cch_books\view\Tela_Inicial.class
+cch_books\view\Tela_Inicial$2.class
+cch_books\view\Tela_Inicial$3.class
+cch_books\http\ClienteHttp.class
+cch_books\view\Tela_Inicial$1.class
