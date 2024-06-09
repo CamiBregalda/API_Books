@@ -153,6 +153,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
     private void jBTNBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTNBuscarActionPerformed
         try {
+            livros.clear();
             String busca = jTFBuscar.getText();
 
             if (busca.isEmpty()) {
@@ -176,6 +177,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
             livros = extrairDados(json);
 
             DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
+            tabela.setRowCount(0);
 
             for (int i = 0; i < livros.size(); i++) {
                 String autores = String.join(", ", livros.get(i).getAutores());
