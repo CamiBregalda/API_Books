@@ -47,8 +47,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTFBuscar" min="-2" pref="256" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jBTNBuscar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="136" max="32767" attributes="0"/>
+                  <Component id="jBTNBuscar" min="-2" pref="81" max="-2" attributes="0"/>
+                  <EmptySpace pref="127" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="74" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jTFQuantidade" min="-2" pref="32" max="-2" attributes="0"/>
