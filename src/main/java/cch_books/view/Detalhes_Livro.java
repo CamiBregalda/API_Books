@@ -33,6 +33,8 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBAutoresLivro = new javax.swing.JLabel();
         jLBPrecoLivro = new javax.swing.JLabel();
         jLBIdiomaLivro = new javax.swing.JLabel();
+        jLBpdf = new javax.swing.JLabel();
+        jLBpub = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -78,10 +80,8 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBDisponivelEm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLBDisponivelEm.setText("Disponível em:");
 
-        jCBpdf.setText("PDF");
         jCBpdf.setEnabled(false);
 
-        jCBpub.setText("PUB");
         jCBpub.setEnabled(false);
 
         jLBEditoraLivro.setBackground(new java.awt.Color(255, 255, 255));
@@ -95,6 +95,10 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         jLBIdiomaLivro.setBackground(new java.awt.Color(255, 255, 255));
         jLBIdiomaLivro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLBpdf.setText("PDF");
+
+        jLBpub.setText("PUB");
 
         javax.swing.GroupLayout jPBackLayout = new javax.swing.GroupLayout(jPBack);
         jPBack.setLayout(jPBackLayout);
@@ -136,11 +140,17 @@ public class Detalhes_Livro extends javax.swing.JDialog {
                                     .addGroup(jPBackLayout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jCBpub)
-                                            .addComponent(jCBpdf))
+                                            .addGroup(jPBackLayout.createSequentialGroup()
+                                                .addComponent(jCBpub)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLBpub, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPBackLayout.createSequentialGroup()
+                                                .addComponent(jCBpdf)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLBpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPBackLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                                 .addComponent(jLBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38))))
                     .addGroup(jPBackLayout.createSequentialGroup()
@@ -177,15 +187,19 @@ public class Detalhes_Livro extends javax.swing.JDialog {
                                     .addComponent(jLBPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLBIdioma)))
                             .addGroup(jPBackLayout.createSequentialGroup()
-                                .addComponent(jCBpdf)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCBpdf)
+                                    .addComponent(jLBpdf))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCBpub)))
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCBpub)
+                                    .addComponent(jLBpub))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLBIdiomaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLBPreco))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSPDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addComponent(jSPDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -193,15 +207,11 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jPBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -267,6 +277,8 @@ public class Detalhes_Livro extends javax.swing.JDialog {
     private javax.swing.JLabel jLBPreco;
     private javax.swing.JLabel jLBPrecoLivro;
     private javax.swing.JLabel jLBTitulo;
+    private javax.swing.JLabel jLBpdf;
+    private javax.swing.JLabel jLBpub;
     private javax.swing.JPanel jPBack;
     private javax.swing.JPanel jPNImagem;
     private javax.swing.JScrollPane jSPDescricao;
