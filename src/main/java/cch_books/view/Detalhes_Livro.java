@@ -86,7 +86,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         jLBpdf.setText("PDF");
 
-        jLBpub.setText("PUB");
+        jLBpub.setText("EPub");
 
         javax.swing.GroupLayout jPBackLayout = new javax.swing.GroupLayout(jPBack);
         jPBack.setLayout(jPBackLayout);
@@ -101,7 +101,6 @@ public class Detalhes_Livro extends javax.swing.JDialog {
                             .addComponent(jSPDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPBackLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLBImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPBackLayout.createSequentialGroup()
