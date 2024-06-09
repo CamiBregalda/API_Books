@@ -9,29 +9,29 @@ public class Book {
     private String editora;
     private String paisOrigem;
     private String descricao;
-    private String linguagem;
     private boolean disponivelPDF;
     private boolean disponivelEPub;
     private String codMoeda;
     private Double valor;
+    private String thumbnailUrl;
 
-    public Book(String id, String titulo, List<String> autores, String editora, String paisOrigem, String descricao, String linguagem, boolean disponivelPDF, boolean disponivelEPub, String codMoeda, Double valor) {
+    public Book(String id, String titulo, List<String> autores, String editora, String paisOrigem, String descricao, boolean disponivelPDF, boolean disponivelEPub, String codMoeda, Double valor, String thumbnailUrl) {
         this.id = id;
         this.titulo = titulo;
         this.autores = autores;
         this.editora = editora;
         this.paisOrigem = paisOrigem;
         this.descricao = descricao;
-        this.linguagem = linguagem;
         this.disponivelPDF = disponivelPDF;
         this.disponivelEPub = disponivelEPub;
         this.codMoeda = codMoeda;
         this.valor = valor;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public Book() {
     }
-
+    
     public String getId() {
         return id;
     }
@@ -80,14 +80,6 @@ public class Book {
         this.descricao = descricao;
     }
 
-    public String getLinguagem() {
-        return linguagem;
-    }
-
-    public void setLinguagem(String linguagem) {
-        this.linguagem = linguagem;
-    }
-
     public boolean isDisponivelPDF() {
         return disponivelPDF;
     }
@@ -119,6 +111,12 @@ public class Book {
     public void setValor(Double valor) {
         this.valor = valor;
     }
-    
-    
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }
