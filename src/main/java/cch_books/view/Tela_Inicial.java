@@ -4,6 +4,7 @@ import cch_books.http.ClienteHttp;
 import cch_books.model.Book;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -151,109 +152,127 @@ public class Tela_Inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBTNBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTNBuscarActionPerformed
-        String busca = jTFBuscar.getText();
-        int quantidade;
-        
         try {
-            quantidade = Integer.parseInt(jTFQuantidade.getText());
-        } catch (NumberFormatException e) {
-            quantidade = 0;
-        }
-        
-        ClienteHttp cliente = new ClienteHttp();
-        String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca;
-        if(quantidade > 0){
-            url = url += "&maxResults=" + quantidade;
-        }
-        //String json = cliente.buscaDados(url);
-        //livros = extrairDados(json);
-               
-        DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
-        
-        Book livro = new Book();
-        livro.setTitulo("Titulo");
-        livro.setAutores(List.of("Autor 1", "Autor 2"));
-        livros.add(livro);
+            String busca = jTFBuscar.getText();
 
-        for(int i = 0; i < livros.size(); i++){
-           String autores = String.join(", ", livros.get(i).getAutores());
-           tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
-        }   
+            if (busca.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Digite um termo para busca!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int quantidade;
+            try {
+                quantidade = Integer.parseInt(jTFQuantidade.getText());
+            } catch (NumberFormatException e) {
+                quantidade = 0;
+            }
+
+            ClienteHttp cliente = new ClienteHttp();
+            String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca;
+            if (quantidade > 0) {
+                url = url += "&maxResults=" + quantidade;
+            }
+            String json = cliente.buscaDados(url);
+            livros = extrairDados(json);
+
+            DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
+
+            for (int i = 0; i < livros.size(); i++) {
+                String autores = String.join(", ", livros.get(i).getAutores());
+                tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao realizar busca!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBTNBuscarActionPerformed
 
     private void jTBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBLivrosMouseClicked
-        String titulo = jTBLivros.getValueAt(jTBLivros.getSelectedRow(), 0).toString();
-        
-        for (Book livro : livros) {
-            if (livro.getTitulo().equalsIgnoreCase(titulo)) {
-                Detalhes_Livro detalhesLivro = new Detalhes_Livro();
-                detalhesLivro.recebeDados(livro);
-                detalhesLivro.setTitle("Detalhes do Livro");
-                detalhesLivro.setVisible(true);
-                break; 
-            }
+        try {
+            String titulo = jTBLivros.getValueAt(jTBLivros.getSelectedRow(), 0).toString();
+            
+            Detalhes_Livro detalhesLivro = new Detalhes_Livro();
+            detalhesLivro.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao abrir detalhes do livro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTBLivrosMouseClicked
 
-    private List<Book> extrairDados(String json){
+    private List<Book> extrairDados(String json){        
         try {
-            List<Book> books = new ArrayList<>();
-
             JSONObject jsonObject = new JSONObject(json);
             JSONArray itensJson = jsonObject.optJSONArray("items");
 
             if(itensJson != null){
                 for (int i = 0; i < itensJson.length(); i++) {
-                    JSONObject item = itensJson.getJSONObject(i);
-                    Book livro = new Book();
+                    try {
+                        JSONObject item = itensJson.getJSONObject(i);
+                        Book livro = new Book();
 
-                    JSONObject volumeInfo = item.optJSONObject("volumeInfo");
-                    JSONObject saleInfo = item.optJSONObject("saleInfo");
-                    JSONObject accessInfo = item.optJSONObject("accessInfo");
+                        JSONObject volumeInfo = item.optJSONObject("volumeInfo");
+                        JSONObject saleInfo = item.optJSONObject("saleInfo");
+                        JSONObject accessInfo = item.optJSONObject("accessInfo");
 
-                    livro.setId(item.optString("id", "Id não encontrado"));
+                        livro.setId(item.optString("id", "Id não encontrado"));
 
-                    if (volumeInfo != null) {
-                        livro.setTitulo(volumeInfo.optString("title", "Título não encontrado"));
-                        livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado"));
-                        livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado"));
+                        if (volumeInfo != null) {
+                            livro.setTitulo(volumeInfo.optString("title", "Título não encontrado").trim());
+                            livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado").trim());
+                            livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado").trim());
 
-                        List<String> autores = new ArrayList<>();
-                        JSONArray autoresJson = volumeInfo.optJSONArray("authors");
-                        if (autoresJson != null) {
-                            for (int j = 0; j < autoresJson.length(); j++) {
-                                autores.add(autoresJson.getString(j));
+                            List<String> autores = new ArrayList<>();
+                            JSONArray autoresJson = volumeInfo.optJSONArray("authors");
+                            if (autoresJson != null) {
+                                for (int j = 0; j < autoresJson.length(); j++) {
+                                    try {
+                                        autores.add(autoresJson.getString(j).trim());
+                                    } catch (Exception e) {
+                                        System.out.println("Erro ao processar autor: " + e.getMessage());
+                                    }
+                                }
+                            }
+
+                            if(autores.isEmpty()){
+                                autores.add("Autores desconhecidos");
+                            }
+
+                            livro.setAutores(autores);
+                        }
+
+                        if(saleInfo != null){
+                            livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado").trim());
+
+                            JSONObject listPrice = saleInfo.optJSONObject("listPrice");
+                            if (listPrice != null){
+                                livro.setValor(listPrice.optDouble("amount", 0.0));
+                                livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado").trim());
                             }
                         }
 
-                        if(autores.isEmpty()){
-                            autores.add("Autores desconhecidos");
+                        if(accessInfo != null){
+                            try {
+                                livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
+                            } catch (Exception e) {
+                                System.out.println("Erro ao processar PDF: " + e.getMessage());
+                                livro.setDisponivelPDF(false);
+                            }
+
+                            try {
+                                livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
+                            } catch (Exception e) {
+                                System.out.println("Erro ao processar ePub: " + e.getMessage());
+                                livro.setDisponivelEPub(false);
+                            }
                         }
 
-                        livro.setAutores(autores);
+                        livros.add(livro);
+                    } catch (Exception e) {
+                        System.out.println("Erro ao processar item do livro: " + e.getMessage());
                     }
-
-                    if(saleInfo != null){
-                        livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado"));
-
-                        JSONObject listPrice = saleInfo.optJSONObject("listPrice");
-                        if (listPrice != null){
-                            livro.setValor(listPrice.optDouble("amount", 0.0));
-                            livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado"));
-                        }
-                    }
-
-                    if(accessInfo != null){
-                        livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
-                        livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
-
-                    }
-
-                    livros.add(livro);
                 }
             }
 
-            return books;
+            return livros;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
