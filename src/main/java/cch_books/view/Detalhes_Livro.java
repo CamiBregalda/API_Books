@@ -65,6 +65,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBPreco.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLBPreco.setText("País de Origem:");
 
+        jTADescricao.setEditable(false);
         jTADescricao.setColumns(20);
         jTADescricao.setLineWrap(true);
         jTADescricao.setRows(5);
