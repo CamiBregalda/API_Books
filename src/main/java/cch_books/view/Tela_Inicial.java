@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Tela_Inicial extends javax.swing.JFrame {
@@ -90,9 +91,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         );
         jPNTabelaLayout.setVerticalGroup(
             jPNTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGap(0, 326, Short.MAX_VALUE)
             .addGroup(jPNTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                .addGroup(jPNTabelaLayout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -106,11 +109,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBTNBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
+                .addGap(77, 77, 77))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(54, 54, 54)
@@ -129,12 +132,12 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLBBuscar)
                         .addComponent(jBTNBuscar)))
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addContainerGap(386, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(86, 86, 86)
                     .addComponent(jPNTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addContainerGap(37, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,7 +148,9 @@ public class Tela_Inicial extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -161,20 +166,26 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 return;
             }
 
-            int quantidade;
+            int quantidade = 30;
             try {
-                quantidade = Integer.parseInt(jTFQuantidade.getText());
+                String quantidadeText = jTFQuantidade.getText();
+                if (!quantidadeText.isEmpty()) {
+                    quantidade = Integer.parseInt(quantidadeText);
+                }
             } catch (NumberFormatException e) {
-                quantidade = 0;
+                jTFQuantidade.setText(String.valueOf(quantidade));
+                System.out.println("Formato inválido para quantidade. Usando valor padrão: " + quantidade);
             }
 
-            ClienteHttp cliente = new ClienteHttp();
-            String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca;
-            if (quantidade > 0) {
-                url = url += "&maxResults=" + quantidade;
+            try {
+                ClienteHttp cliente = new ClienteHttp();
+                String url = "https://www.googleapis.com/books/v1/volumes?q=" + busca + "&maxResults=" + quantidade;
+                String json = cliente.buscaDados(url);
+                livros = extrairDados(json);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                System.out.println("Erro ao processar o JSON: " + e.getMessage());
             }
-            String json = cliente.buscaDados(url);
-            livros = extrairDados(json);
 
             DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
             tabela.setRowCount(0);
@@ -230,8 +241,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
                         if (volumeInfo != null) {
                             livro.setTitulo(volumeInfo.optString("title", "Título não encontrado").trim());
-                            livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrado").trim());
-                            livro.setEditora(volumeInfo.optString("description", "Descrição não encontrado").trim());
+                            livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrada").trim());
+                            livro.setDescricao(volumeInfo.optString("description", "Descrição não encontrada").trim());
 
                             List<String> autores = new ArrayList<>();
                             JSONArray autoresJson = volumeInfo.optJSONArray("authors");
@@ -250,6 +261,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
                             }
 
                             livro.setAutores(autores);
+                            
+                            livro.setThumbnailUrl(volumeInfo.optJSONObject("imageLinks").optString("thumbnail", "Imagem não encontrada").trim());
                         }
 
                         if(saleInfo != null){
@@ -257,8 +270,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
                             JSONObject listPrice = saleInfo.optJSONObject("listPrice");
                             if (listPrice != null){
-                                livro.setValor(listPrice.optDouble("amount", 0.0));
-                                livro.setCodMoeda(listPrice.optString("currencyCode", "Código não encontrado").trim());
+                                livro.setValor(listPrice.optDouble("amount"));
+                                livro.setCodMoeda(listPrice.optString("currencyCode").trim());
                             }
                         }
 
