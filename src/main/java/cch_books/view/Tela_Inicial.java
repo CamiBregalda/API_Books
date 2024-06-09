@@ -191,9 +191,20 @@ public class Tela_Inicial extends javax.swing.JFrame {
     private void jTBLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBLivrosMouseClicked
         try {
             String titulo = jTBLivros.getValueAt(jTBLivros.getSelectedRow(), 0).toString();
-            
-            Detalhes_Livro detalhesLivro = new Detalhes_Livro();
-            detalhesLivro.setVisible(true);
+
+            for (Book livro : livros) {
+                if(livro.getTitulo().equals(titulo)){
+                     
+                    Detalhes_Livro detalhesLivro = new Detalhes_Livro(this, true);
+                    detalhesLivro.recebeDados(livro);
+                    detalhesLivro.setModal(true);
+                    detalhesLivro.pack();
+                    detalhesLivro.setLocationRelativeTo(this);
+                    detalhesLivro.setVisible(true);
+                    
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao abrir detalhes do livro: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
