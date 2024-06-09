@@ -19,26 +19,25 @@ public class ClienteHttp {
         }
     }
     
-    public static void baixarImagem(String imageUrl) {
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest httpRequest = HttpRequest.newBuilder()
+    public static byte[] baixarImagem(String imageUrl) throws IOException {
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(imageUrl))
                 .GET()
                 .build();
 
         try {
-            HttpResponse<byte[]> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofByteArray());
-            if (httpResponse.statusCode() == 200) {
-                FileOutputStream fileOutputStream = new FileOutputStream("thumbnail.jpg");
-                fileOutputStream.write(httpResponse.body());
-                fileOutputStream.close();
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
 
-                System.out.println("Imagem baixada com sucesso.");
+            if (response.statusCode() == 200) {
+                return response.body();
             } else {
-                System.out.println("Falha ao baixar a imagem. Código de status: " + httpResponse.statusCode());
+                throw new IOException("Falha na solicitação HTTP. Código de status: " + response.statusCode());
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+        } catch(InterruptedException e){
+            throw new IOException(e);
         }
+
     }
 }
