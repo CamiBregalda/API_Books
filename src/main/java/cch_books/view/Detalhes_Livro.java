@@ -6,6 +6,7 @@ import cch_books.model.Book;
 public class Detalhes_Livro extends javax.swing.JInternalFrame {
     
     public Detalhes_Livro() {
+        setTitle("Detalhes do Livro");
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -195,7 +196,7 @@ public class Detalhes_Livro extends javax.swing.JInternalFrame {
         jCBpdf.setSelected(livro.isDisponivelPDF());
         jCBpub.setSelected(livro.isDisponivelEPub());
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCBpdf;
     private javax.swing.JCheckBox jCBpub;
