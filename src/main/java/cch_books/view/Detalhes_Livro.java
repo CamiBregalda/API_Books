@@ -39,6 +39,8 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPBack.setBackground(new java.awt.Color(195, 195, 236));
+
         jLBTitulo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLBTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLBTitulo.setText("Título do livro");
@@ -68,8 +70,10 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBDisponivelEm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLBDisponivelEm.setText("Disponível em:");
 
+        jCBpdf.setBackground(new java.awt.Color(195, 195, 236));
         jCBpdf.setEnabled(false);
 
+        jCBpub.setBackground(new java.awt.Color(195, 195, 236));
         jCBpub.setEnabled(false);
 
         jLBEditoraLivro.setBackground(new java.awt.Color(255, 255, 255));
@@ -186,7 +190,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
                             .addComponent(jLBPreco)
                             .addComponent(jLBIdiomaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSPDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addComponent(jSPDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
