@@ -39,7 +39,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPBack.setBackground(new java.awt.Color(195, 195, 236));
+        jPBack.setBackground(new java.awt.Color(255, 204, 204));
 
         jLBTitulo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLBTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,10 +70,10 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBDisponivelEm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLBDisponivelEm.setText("Disponível em:");
 
-        jCBpdf.setBackground(new java.awt.Color(195, 195, 236));
+        jCBpdf.setBackground(new java.awt.Color(255, 204, 204));
         jCBpdf.setEnabled(false);
 
-        jCBpub.setBackground(new java.awt.Color(195, 195, 236));
+        jCBpub.setBackground(new java.awt.Color(255, 204, 204));
         jCBpub.setEnabled(false);
 
         jLBEditoraLivro.setBackground(new java.awt.Color(255, 255, 255));
