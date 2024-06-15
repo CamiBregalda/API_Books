@@ -39,22 +39,27 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPBack.setBackground(new java.awt.Color(255, 204, 204));
+        jPBack.setBackground(new java.awt.Color(84, 0, 84));
 
         jLBTitulo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLBTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLBTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLBTitulo.setText("Título do livro");
 
         jLBEditora.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBEditora.setForeground(new java.awt.Color(255, 255, 255));
         jLBEditora.setText("Editora:");
 
         jLBAutores.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBAutores.setForeground(new java.awt.Color(255, 255, 255));
         jLBAutores.setText("Autores:");
 
         jLBIdioma.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBIdioma.setForeground(new java.awt.Color(255, 255, 255));
         jLBIdioma.setText("Preço:");
 
         jLBPreco.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBPreco.setForeground(new java.awt.Color(255, 255, 255));
         jLBPreco.setText("Idioma:");
 
         jTADescricao.setEditable(false);
@@ -65,31 +70,41 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jSPDescricao.setViewportView(jTADescricao);
 
         jLBDescricao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBDescricao.setForeground(new java.awt.Color(255, 255, 255));
         jLBDescricao.setText("Descrição:");
 
         jLBDisponivelEm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBDisponivelEm.setForeground(new java.awt.Color(255, 255, 255));
         jLBDisponivelEm.setText("Disponível em:");
 
-        jCBpdf.setBackground(new java.awt.Color(255, 204, 204));
+        jCBpdf.setBackground(new java.awt.Color(84, 0, 84));
         jCBpdf.setEnabled(false);
 
-        jCBpub.setBackground(new java.awt.Color(255, 204, 204));
+        jCBpub.setBackground(new java.awt.Color(84, 0, 84));
         jCBpub.setEnabled(false);
 
         jLBEditoraLivro.setBackground(new java.awt.Color(255, 255, 255));
-        jLBEditoraLivro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLBEditoraLivro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBEditoraLivro.setForeground(new java.awt.Color(255, 255, 255));
 
         jLBAutoresLivro.setBackground(new java.awt.Color(255, 255, 255));
-        jLBAutoresLivro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLBAutoresLivro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBAutoresLivro.setForeground(new java.awt.Color(255, 255, 255));
 
         jLBPrecoLivro.setBackground(new java.awt.Color(255, 255, 255));
-        jLBPrecoLivro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLBPrecoLivro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBPrecoLivro.setForeground(new java.awt.Color(255, 255, 255));
 
         jLBIdiomaLivro.setBackground(new java.awt.Color(255, 255, 255));
-        jLBIdiomaLivro.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLBIdiomaLivro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBIdiomaLivro.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLBpdf.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBpdf.setForeground(new java.awt.Color(255, 255, 255));
         jLBpdf.setText("PDF");
 
+        jLBpub.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBpub.setForeground(new java.awt.Color(255, 255, 255));
         jLBpub.setText("EPub");
 
         javax.swing.GroupLayout jPBackLayout = new javax.swing.GroupLayout(jPBack);
