@@ -34,23 +34,33 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(84, 0, 84));
 
-        jTFBuscar.setBackground(new java.awt.Color(242, 242, 242));
+        jTFBuscar.setBackground(new java.awt.Color(216, 202, 229));
 
+        jLBBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        jLBBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jLBBuscar.setText("Buscar:");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Quantidade:");
 
-        jTFQuantidade.setBackground(new java.awt.Color(242, 242, 242));
+        jTFQuantidade.setBackground(new java.awt.Color(216, 202, 229));
 
+        jBTNBuscar.setBackground(new java.awt.Color(168, 128, 168));
+        jBTNBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBTNBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBTNBuscar.setText("Buscar");
+        jBTNBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jBTNBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBTNBuscarActionPerformed(evt);
             }
         });
 
+        jScrollPane1.setBackground(new java.awt.Color(84, 0, 84));
         jScrollPane1.setAlignmentX(1.0F);
         jScrollPane1.setAlignmentY(1.0F);
         jScrollPane1.setInheritsPopupMenu(true);
@@ -80,6 +90,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTBLivros.setGridColor(new java.awt.Color(255, 255, 255));
+        jTBLivros.setRowSelectionAllowed(false);
         jTBLivros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTBLivrosMouseClicked(evt);
@@ -137,8 +149,8 @@ public class Tela_Inicial extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLBBuscar)
-                        .addComponent(jBTNBuscar)))
-                .addContainerGap(397, Short.MAX_VALUE))
+                        .addComponent(jBTNBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(398, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(86, 86, 86)
