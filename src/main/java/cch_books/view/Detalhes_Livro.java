@@ -2,7 +2,6 @@ package cch_books.view;
 
 import static cch_books.http.ClienteHttp.baixarImagem;
 import cch_books.model.Book;
-import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class Detalhes_Livro extends javax.swing.JDialog {
@@ -107,6 +106,12 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBpub.setForeground(new java.awt.Color(255, 255, 255));
         jLBpub.setText("EPub");
 
+        jLBImagem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLBImagem.setForeground(new java.awt.Color(255, 255, 255));
+        jLBImagem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLBImagem.setText("Não há imagem!");
+        jLBImagem.setToolTipText("");
+
         javax.swing.GroupLayout jPBackLayout = new javax.swing.GroupLayout(jPBack);
         jPBack.setLayout(jPBackLayout);
         jPBackLayout.setHorizontalGroup(
@@ -120,50 +125,49 @@ public class Detalhes_Livro extends javax.swing.JDialog {
                             .addComponent(jSPDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPBackLayout.createSequentialGroup()
-                        .addComponent(jLBImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPBackLayout.createSequentialGroup()
+                                .addGap(159, 159, 159)
                                 .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPBackLayout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPBackLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLBIdioma, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLBPreco, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                            .addGroup(jPBackLayout.createSequentialGroup()
-                                                .addComponent(jLBEditora)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLBEditoraLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jLBIdioma, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLBPreco, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addGroup(jPBackLayout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jLBAutores)
+                                        .addComponent(jLBEditora)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLBPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLBAutoresLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLBIdiomaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(46, 46, 46)
+                                        .addComponent(jLBEditoraLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPBackLayout.createSequentialGroup()
+                                .addGap(153, 153, 153)
+                                .addComponent(jLBAutores)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLBPrecoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLBAutoresLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLBIdiomaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPBackLayout.createSequentialGroup()
+                                .addComponent(jLBDisponivelEm)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPBackLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPBackLayout.createSequentialGroup()
-                                        .addComponent(jLBDisponivelEm)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jCBpub)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLBpub, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPBackLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPBackLayout.createSequentialGroup()
-                                                .addComponent(jCBpub)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLBpub, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPBackLayout.createSequentialGroup()
-                                                .addComponent(jCBpdf)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLBpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPBackLayout.createSequentialGroup()
-                                .addComponent(jLBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38))))))
+                                        .addComponent(jCBpdf)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLBpdf, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPBackLayout.createSequentialGroup()
+                        .addComponent(jLBImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLBTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))))
         );
         jPBackLayout.setVerticalGroup(
             jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,12 +257,15 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jCBpdf.setSelected(livro.isDisponivelPDF());
         jCBpub.setSelected(livro.isDisponivelEPub());
         
-        try {
-            byte[] imageBytes = baixarImagem(livro.getThumbnailUrl());
-            ImageIcon icon = new ImageIcon(imageBytes);
-            jLBImagem.setIcon(icon);
-        } catch (Exception e){
-            System.out.println("Erro ao carregar imagem: " + e.getMessage());
+        if (!livro.getThumbnailUrl().equals("Imagem não encontrada")){
+            try {
+                byte[] imageBytes = baixarImagem(livro.getThumbnailUrl());
+                ImageIcon icon = new ImageIcon(imageBytes);
+                jLBImagem.setIcon(icon);
+            } catch (Exception e){
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                jLBImagem.setText("Não há imagem!");
+            }
         }
     }
     
