@@ -103,9 +103,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
         jPNTabela.setLayout(jPNTabelaLayout);
         jPNTabelaLayout.setHorizontalGroup(
             jPNTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
             .addGroup(jPNTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
+                .addGroup(jPNTabelaLayout.createSequentialGroup()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPNTabelaLayout.setVerticalGroup(
             jPNTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,29 +129,28 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBTNBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addGap(78, 78, 78))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(54, 54, 54)
                     .addComponent(jPNTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(54, Short.MAX_VALUE)))
+                    .addContainerGap(56, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLBBuscar)
+                    .addComponent(jBTNBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTFBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLBBuscar)
-                        .addComponent(jBTNBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTFQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(398, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -162,7 +163,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,11 +188,19 @@ public class Tela_Inicial extends javax.swing.JFrame {
             try {
                 String quantidadeText = jTFQuantidade.getText();
                 if (!quantidadeText.isEmpty()) {
-                    quantidade = Integer.parseInt(quantidadeText);
+                    quantidade = (int) Math.round(Double.parseDouble(quantidadeText));
+                    
+                    if (quantidade > 40){
+                        JOptionPane.showMessageDialog(this, "Quantidade máxima suportada pela API: 40 livros!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        quantidade = 40;
+                        jTFQuantidade.setText(String.valueOf(quantidade));
+                    }
+                } else {
+                    jTFQuantidade.setText(String.valueOf(quantidade));
                 }
             } catch (NumberFormatException e) {
                 jTFQuantidade.setText(String.valueOf(quantidade));
-                System.out.println("Formato inválido para quantidade. Usando valor padrão: " + quantidade);
+                JOptionPane.showMessageDialog(this, "Formato do dado inválido no campo quantidade Utilize somente valores inteiros. Busca usando valor padrão: 30", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
             try {
@@ -201,12 +210,11 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 livros = extrairDados(json);
             } catch (JSONException e) {
                 e.printStackTrace();
-                System.out.println("Erro ao processar o JSON: " + e.getMessage());
             }
 
             DefaultTableModel tabela = (DefaultTableModel) jTBLivros.getModel();
             tabela.setRowCount(0);
-
+            
             for (int i = 0; i < livros.size(); i++) {
                 String autores = String.join(", ", livros.get(i).getAutores());
                 tabela.addRow(new Object[]{livros.get(i).getTitulo(), autores});
@@ -256,56 +264,77 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
                         livro.setId(item.optString("id", "Id não encontrado"));
 
-                        if (volumeInfo != null) {
-                            livro.setTitulo(volumeInfo.optString("title", "Título não encontrado").trim());
-                            livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrada").trim());
-                            livro.setDescricao(volumeInfo.optString("description", "Descrição não encontrada").trim());
+                        try {
+                            if (volumeInfo != null) {
+                                livro.setTitulo(volumeInfo.optString("title", "Título não encontrado").trim());
+                                livro.setEditora(volumeInfo.optString("publisher", "Editora não encontrada").trim());
+                                livro.setDescricao(volumeInfo.optString("description", "Descrição não encontrada").trim());
 
-                            List<String> autores = new ArrayList<>();
-                            JSONArray autoresJson = volumeInfo.optJSONArray("authors");
-                            if (autoresJson != null) {
-                                for (int j = 0; j < autoresJson.length(); j++) {
-                                    try {
-                                        autores.add(autoresJson.getString(j).trim());
-                                    } catch (Exception e) {
-                                        System.out.println("Erro ao processar autor: " + e.getMessage());
+                                List<String> autores = new ArrayList<>();
+                                try {
+                                    JSONArray autoresJson = volumeInfo.optJSONArray("authors");
+                                    if (autoresJson != null) {
+                                        for (int j = 0; j < autoresJson.length(); j++) {
+                                            autores.add(autoresJson.getString(j).trim());
+                                        }
                                     }
+                                } catch (Exception e) {
+                                    System.out.println("Erro ao processar autor: " + e.getMessage());
+                                }
+
+                                if(autores.isEmpty()){
+                                    autores.add("Autores desconhecidos");
+                                }
+
+                                livro.setAutores(autores);
+
+                                try {
+                                    livro.setThumbnailUrl(volumeInfo.optJSONObject("imageLinks").optString("thumbnail").trim());
+                                } catch (Exception e) {
+                                    System.out.println(livro.getTitulo());
+                                    livro.setThumbnailUrl("Imagem não encontrada");
                                 }
                             }
-
-                            if(autores.isEmpty()){
-                                autores.add("Autores desconhecidos");
-                            }
-
-                            livro.setAutores(autores);
-                            
-                            livro.setThumbnailUrl(volumeInfo.optJSONObject("imageLinks").optString("thumbnail", "Imagem não encontrada").trim());
+                        } catch (Exception e) {
+                            System.out.println("Erro ao processar volumeInfo: " + e.getMessage());
                         }
+                        
+                        try {
+                            if(saleInfo != null){
+                                livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado").trim());
 
-                        if(saleInfo != null){
-                            livro.setPaisOrigem(saleInfo.optString("country", "País de origem não encontrado").trim());
-
-                            JSONObject listPrice = saleInfo.optJSONObject("listPrice");
-                            if (listPrice != null){
-                                livro.setValor(listPrice.optDouble("amount"));
-                                livro.setCodMoeda(listPrice.optString("currencyCode").trim());
+                                try {
+                                    JSONObject listPrice = saleInfo.optJSONObject("listPrice");
+                                    if (listPrice != null){
+                                        livro.setValor(listPrice.optDouble("amount"));
+                                        livro.setCodMoeda(listPrice.optString("currencyCode").trim());
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Erro ao processar listPrice: " + e.getMessage());
+                                }
                             }
+                        } catch (Exception e) {
+                            System.out.println("Erro ao processar saleInfo: " + e.getMessage());
                         }
+                        
+                        try {
+                            if(accessInfo != null){
+                                try {
+                                    livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
+                                } catch (Exception e) {
+                                    System.out.println("Erro ao processar PDF: " + e.getMessage());
+                                    livro.setDisponivelPDF(false);
+                                }
 
-                        if(accessInfo != null){
-                            try {
-                                livro.setDisponivelPDF(accessInfo.optJSONObject("pdf").optBoolean("isAvailable", false));
-                            } catch (Exception e) {
-                                System.out.println("Erro ao processar PDF: " + e.getMessage());
-                                livro.setDisponivelPDF(false);
+                                try {
+                                    livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
+                                } catch (Exception e) {
+                                    System.out.println("Erro ao processar ePub: " + e.getMessage());
+                                    livro.setDisponivelEPub(false);
+                                }
                             }
-
-                            try {
-                                livro.setDisponivelEPub(accessInfo.optJSONObject("epub").optBoolean("isAvailable", false));
-                            } catch (Exception e) {
-                                System.out.println("Erro ao processar ePub: " + e.getMessage());
-                                livro.setDisponivelEPub(false);
-                            }
+                        } catch (Exception e) {
+                            System.out.println("Erro ao processar saleInfo: " + e.getMessage());
                         }
 
                         livros.add(livro);
