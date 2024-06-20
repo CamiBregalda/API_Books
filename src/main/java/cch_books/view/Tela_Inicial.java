@@ -34,7 +34,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(84, 0, 84));
+        jPanel1.setBackground(new java.awt.Color(54, 26, 54));
 
         jTFBuscar.setBackground(new java.awt.Color(216, 202, 229));
 
@@ -262,7 +262,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                         JSONObject volumeInfo = item.optJSONObject("volumeInfo");
                         JSONObject saleInfo = item.optJSONObject("saleInfo");
                         JSONObject accessInfo = item.optJSONObject("accessInfo");
-
+                        
                         livro.setId(item.optString("id", "Id não encontrado"));
 
                         try {
