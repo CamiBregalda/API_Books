@@ -38,7 +38,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPBack.setBackground(new java.awt.Color(84, 0, 84));
+        jPBack.setBackground(new java.awt.Color(54, 26, 54));
 
         jLBTitulo.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLBTitulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,10 +76,10 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         jLBDisponivelEm.setForeground(new java.awt.Color(255, 255, 255));
         jLBDisponivelEm.setText("Disponível em:");
 
-        jCBpdf.setBackground(new java.awt.Color(84, 0, 84));
+        jCBpdf.setBackground(new java.awt.Color(54, 26, 54));
         jCBpdf.setEnabled(false);
 
-        jCBpub.setBackground(new java.awt.Color(84, 0, 84));
+        jCBpub.setBackground(new java.awt.Color(54, 26, 54));
         jCBpub.setEnabled(false);
 
         jLBEditoraLivro.setBackground(new java.awt.Color(255, 255, 255));
@@ -217,7 +217,7 @@ public class Detalhes_Livro extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
