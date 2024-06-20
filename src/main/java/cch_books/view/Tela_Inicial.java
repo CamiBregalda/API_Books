@@ -294,7 +294,6 @@ public class Tela_Inicial extends javax.swing.JFrame {
                                 try {
                                     livro.setThumbnailUrl(volumeInfo.optJSONObject("imageLinks").optString("thumbnail").trim());
                                 } catch (Exception e) {
-                                    System.out.println(livro.getTitulo());
                                     livro.setThumbnailUrl("Imagem não encontrada");
                                 }
                             }
