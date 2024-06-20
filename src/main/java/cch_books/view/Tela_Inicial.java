@@ -201,7 +201,7 @@ public class Tela_Inicial extends javax.swing.JFrame {
                 }
             } catch (NumberFormatException e) {
                 jTFQuantidade.setText(String.valueOf(quantidade));
-                JOptionPane.showMessageDialog(this, "Formato do dado inválido no campo quantidade Utilize somente valores inteiros. Busca usando valor padrão: 30", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Formato do dado inválido no campo quantidade. Utilize somente valores inteiros. Busca usando valor padrão: 30", "Erro", JOptionPane.ERROR_MESSAGE);
             }
 
             try {

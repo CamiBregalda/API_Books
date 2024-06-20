@@ -1,6 +1,5 @@
 cch_books\model\Book.class
 cch_books\view\Detalhes_Livro$1.class
-cch_books\Main.class
 cch_books\view\Detalhes_Livro.class
 cch_books\view\Tela_Inicial$4.class
 cch_books\view\Tela_Inicial.class
